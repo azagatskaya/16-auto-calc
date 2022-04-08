@@ -118,3 +118,16 @@ body {
   letter-spacing: 1px;
   background-color: darkcyan;
 }
+
+sup {
+  font-family: inherit;
+  font-size: 8px;
+}
+
+.result-window {
+  margin-top: 50px;
+  height: 30px;
+  text-align: center;
+  padding: auto;
+  font-size: 20px;
+}

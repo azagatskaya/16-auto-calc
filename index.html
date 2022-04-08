@@ -49,22 +49,22 @@
 				</select>
 
 				<div class="main__wrapper-row">
-					<fieldset class="calculator__fieldset">
+					<fieldset class="calculator__fieldset radio--fuel">
 						<legend class="calculator__param-name">Тип топлива</legend>
 						<div>
-							<input type="radio" name="fuel" id="hybrid" checked>
-							<label class="calculator__param-value" for="hybrid">Гибрид</label>
+							<input type="radio" name="fuel" id="petrol"  checked>
+							<label class="calculator__param-value" for="petrol">Бензин</label>
 						</div>
 						<div>
-							<input type="radio" name="fuel" id="petrol">
-							<label class="calculator__param-value" for="petrol">Бензин</label>
+							<input type="radio" name="fuel" id="hybrid">
+							<label class="calculator__param-value" for="hybrid">Гибрид</label>
 						</div>
 						<div>
 							<input type="radio" name="fuel" id="diesel">
 							<label class="calculator__param-value" for="diesel">Дизель</label>
 						</div>
 					</fieldset>
-					<fieldset class="calculator__fieldset">
+					<fieldset class="calculator__fieldset radio--drive-unit">
 						<legend class="calculator__param-name">Привод</legend>
 						<div>
 							<input type="radio" name="drive-unit" id="front-du" checked>
@@ -75,7 +75,7 @@
 							<label class="calculator__param-value" for="full-du">Полный</label>
 						</div>
 					</fieldset>
-					<fieldset class="calculator__fieldset">
+					<fieldset class="calculator__fieldset radio--transmission">
 						<legend class="calculator__param-name">Коробка передач</legend>
 						<div>
 							<input type="radio" name="transmission" id="automatic-tr" checked>
@@ -92,15 +92,15 @@
 					</fieldset>
 				</div>
 
-				<label class="calculator__param-name" for="engine-volume">Объем двигателя, см.</label>
-				<input class="calculator__input input--engine-volume" type="number" id="engine-volume">
+				<label class="calculator__param-name" for="engine-volume">Объем двигателя, см<sup>3</sup>.</label>
+				<input class="calculator__input input--engine-volume" type="number" id="engine-volume" min="500" max="6000" step="100">
 				<label class="calculator__param-name" for="horse-power">Мощность, л.с.</label>
-				<input class="calculator__input input--horse-power" type="number" id="horse-power">
+				<input class="calculator__input input--horse-power" type="number" id="horse-power" min="50" max="500">
 				<label class="calculator__param-name" for="mileage">Пробег, км.</label>
-				<input class="calculator__input input--mileage" type="number" id="mileage">
+				<input class="calculator__input input--mileage" type="number" id="mileage" min="0" step="1000">
 
 				<div class="main__wrapper-row">
-					<fieldset class="calculator__fieldset">
+					<fieldset class="calculator__fieldset radio--car-body">
 						<legend class="calculator__param-name">Тип кузова</legend>
 						<div>
 							<input type="radio" name="car-body" id="sedan" checked>
@@ -115,7 +115,7 @@
 							<label class="calculator__param-value" for="universal">Универсал</label>
 						</div>
 					</fieldset>
-					<fieldset class="calculator__fieldset">
+					<fieldset class="calculator__fieldset equipment">
 						<legend class="calculator__param-name">Оснащение</legend>
 						<div>
 							<input type="checkbox" name="audio" id="audio" checked="checked">
@@ -139,6 +139,7 @@
 						</div>
 					</fieldset>
 				</div>
+				<div class="result-window"></div>
 				<button class="calculator__button" type="button">Рассчитать стоимость</button>
 			</form>
 		</div>
