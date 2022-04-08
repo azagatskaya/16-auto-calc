@@ -20,8 +20,7 @@ body{
 	display: flex;
 	&__wrapper{
 		border-radius: 8px;
-		max-width: 1000px;
-		min-width: 400px;	
+		width: 400px;	
 		border: 1px solid $form-color;
 		margin: 30px auto 0px auto;
 		padding-bottom: 30px;
@@ -94,5 +93,13 @@ sup{
 	height: 30px;
 	text-align: center;
 	padding: auto;
-	font-size: 20px;
+	font-size: 18px;
+	display: flex;
+	flex-wrap: wrap;
+}
+.input-label--required::after{
+	content: '*';
+	color:crimson;
+	font-weight: bold;
+	font-size: 14px;
 }

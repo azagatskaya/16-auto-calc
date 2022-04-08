@@ -31,6 +31,7 @@ model.addEventListener('change', function () {
 });
 
 document.querySelector('.calculator__button').addEventListener('click', calculatePrice);
+document.querySelector('.calculator__button').addEventListener('click', validateFields);
 
 function getMake(){
 	return document.querySelector('.select--make');
@@ -82,8 +83,13 @@ function calculatePrice() {
 		getFuelPrice() + getDriveUnitPrice() + getTransmissionPrice() +
 		getCarBodyPrice() + getEngineVolumePrice() + getHorsePowerPrice() + 
 		getMileagePrice() + getEquipmentPrice();
-	document.querySelector('.result-window').innerHTML = carPrice + ' руб.';
+	printResult(carPrice + ' руб.');
+
 }
+function printResult(text) {
+	document.querySelector('.result-window').innerHTML = text;
+}
+
 function getBasePrice() {
 	let makeIndex = getMakeIndex(make);
 	let modelIndex = getModelIndex(make, model);
@@ -156,4 +162,9 @@ function getMileagePrice() {
 function getEquipmentPrice() {
 	return document.querySelectorAll('.equipment input:checked').length * 10000;
 
+}
+function validateFields() {
+	if (make.value == '-Марка-' || model.value == '-Модель-' || getYearValue() == '-Год выпуска-' || getEngineVolume() == 0 || getHorsePower() == 0) {
+		printResult('Необходимо заполнить обязательные поля.');
+	}
 }

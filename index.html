@@ -16,7 +16,7 @@
 		<div class="main__wrapper">
 			<header class="main__header">Калькулятор стоимости авто</header>
 			<form class="main__form calculator" action="" method="get">
-				<select class="calculator__select select--make" name="make" id="make">
+				<select class="calculator__select select--make input-label--required" name="make" id="make">
 					<option value="choose" title="-Выберите-">-Марка-</option>
 					<option value="mitsubishi">Mitsubishi</option>
 					<option value="suzuki">Suzuki</option>
@@ -92,9 +92,9 @@
 					</fieldset>
 				</div>
 
-				<label class="calculator__param-name" for="engine-volume">Объем двигателя, см<sup>3</sup>.</label>
+				<label class="calculator__param-name input-label--required" for="engine-volume">Объем двигателя, см<sup>3</sup>.</label>
 				<input class="calculator__input input--engine-volume" type="number" id="engine-volume" min="500" max="6000" step="100">
-				<label class="calculator__param-name" for="horse-power">Мощность, л.с.</label>
+				<label class="calculator__param-name input-label--required" for="horse-power">Мощность, л.с.</label>
 				<input class="calculator__input input--horse-power" type="number" id="horse-power" min="50" max="500">
 				<label class="calculator__param-name" for="mileage">Пробег, км.</label>
 				<input class="calculator__input input--mileage" type="number" id="mileage" min="0" step="1000">
