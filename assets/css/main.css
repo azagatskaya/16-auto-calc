@@ -1,0 +1,120 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+}
+
+.main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main__wrapper {
+  border-radius: 8px;
+  max-width: 1000px;
+  min-width: 400px;
+  border: 1px solid darksalmon;
+  margin: 30px auto 0px auto;
+  padding-bottom: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.main__header {
+  width: 100%;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  padding: 20px;
+  text-align: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  color: #fafafa;
+  font-weight: 500;
+  font-size: 15px;
+  background-color: darksalmon;
+}
+
+.main__form {
+  width: 100%;
+  padding: 15px 30px 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.main__wrapper-row {
+  margin: 5px 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.calculator > * {
+  margin-bottom: 10px;
+  color: #0a0a0a;
+}
+
+.calculator__select {
+  border: 1px solid #b5b5b5;
+  border-radius: 4px;
+  height: 35px;
+  padding-left: 5px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.calculator__param-name {
+  margin-bottom: 5px;
+}
+
+.calculator__param-value {
+  font-size: 11px;
+}
+
+.calculator__input {
+  border: 1px solid #b5b5b5;
+  border-radius: 4px;
+  height: 35px;
+  padding-left: 5px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.calculator__button {
+  border: 1px solid #b5b5b5;
+  border-radius: 4px;
+  height: 35px;
+  padding-left: 5px;
+  font-family: inherit;
+  font-size: inherit;
+  margin-top: 15px;
+  color: #fafafa;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background-color: darkcyan;
+}

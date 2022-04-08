@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рассчет стоимости авто</title></title>
+	<link rel="icon" href="favicon.png">
+	<link rel="stylesheet" href="./assets/css/nullstyle.css">
+	<link rel="stylesheet" href="./assets/css/main.css">
+</head>
+
+<body>
+	<main class="main">
+		<div class="main__wrapper">
+			<header class="main__header">Калькулятор стоимости авто</header>
+			<form class="main__form calculator" action="" method="get">
+				<select class="calculator__select select--make" name="make" id="make">
+					<option value="choose" title="-Выберите-">-Марка-</option>
+					<option value="mitsubishi">Mitsubishi</option>
+					<option value="suzuki">Suzuki</option>
+					<option value="toyota">Toyota</option>
+				</select>
+				<select class="calculator__select select--model" name="model" id="model" disabled="disabled">
+					<option value="choose">-Модель-</option>
+				</select>
+
+				<select class="calculator__select select--year" name="year" id="year" disabled="true">
+					<option value="choose">-Год выпуска-</option>
+					<option value="2005">2005</option>
+					<option value="2006">2006</option>
+					<option value="2007">2007</option>
+					<option value="2008">2008</option>
+					<option value="2009">2009</option>
+					<option value="2010">2010</option>
+					<option value="2011">2011</option>
+					<option value="2012">2012</option>
+					<option value="2013">2013</option>
+					<option value="2014">2014</option>
+					<option value="2015">2015</option>
+					<option value="2016">2016</option>
+					<option value="2017">2017</option>
+					<option value="2018">2018</option>
+					<option value="2019">2019</option>
+					<option value="2020">2020</option>
+					<option value="2021">2021</option>
+					<option value="2022">2022</option>
+				</select>
+
+				<div class="main__wrapper-row">
+					<fieldset class="calculator__fieldset">
+						<legend class="calculator__param-name">Тип топлива</legend>
+						<div>
+							<input type="radio" name="fuel" id="hybrid" checked>
+							<label class="calculator__param-value" for="hybrid">Гибрид</label>
+						</div>
+						<div>
+							<input type="radio" name="fuel" id="petrol">
+							<label class="calculator__param-value" for="petrol">Бензин</label>
+						</div>
+						<div>
+							<input type="radio" name="fuel" id="diesel">
+							<label class="calculator__param-value" for="diesel">Дизель</label>
+						</div>
+					</fieldset>
+					<fieldset class="calculator__fieldset">
+						<legend class="calculator__param-name">Привод</legend>
+						<div>
+							<input type="radio" name="drive-unit" id="front-du" checked>
+							<label class="calculator__param-value" for="front-du">Передний</label>
+						</div>
+						<div>
+							<input type="radio" name="drive-unit" id="full-du">
+							<label class="calculator__param-value" for="full-du">Полный</label>
+						</div>
+					</fieldset>
+					<fieldset class="calculator__fieldset">
+						<legend class="calculator__param-name">Коробка передач</legend>
+						<div>
+							<input type="radio" name="transmission" id="automatic-tr" checked>
+							<label class="calculator__param-value" for="automatic-tr">Автомат</label>
+						</div>
+						<div>
+							<input type="radio" name="transmission" id="mechanic-tr">
+							<label class="calculator__param-value" for="mechanic-tr">Механика</label>
+						</div>
+						<div>
+							<input type="radio" name="transmission" id="robotic-tr">
+							<label class="calculator__param-value" for="robotic-tr">Робот</label>
+						</div>
+					</fieldset>
+				</div>
+
+				<label class="calculator__param-name" for="engine-volume">Объем двигателя, см.</label>
+				<input class="calculator__input input--engine-volume" type="number" id="engine-volume">
+				<label class="calculator__param-name" for="horse-power">Мощность, л.с.</label>
+				<input class="calculator__input input--horse-power" type="number" id="horse-power">
+				<label class="calculator__param-name" for="mileage">Пробег, км.</label>
+				<input class="calculator__input input--mileage" type="number" id="mileage">
+
+				<div class="main__wrapper-row">
+					<fieldset class="calculator__fieldset">
+						<legend class="calculator__param-name">Тип кузова</legend>
+						<div>
+							<input type="radio" name="car-body" id="sedan" checked>
+							<label class="calculator__param-value" for="sedan">Седан</label>
+						</div>
+						<div>
+							<input type="radio" name="car-body" id="hatchback">
+							<label class="calculator__param-value" for="hatchback">Хетчбек</label>
+						</div>
+						<div>
+							<input type="radio" name="car-body" id="universal">
+							<label class="calculator__param-value" for="universal">Универсал</label>
+						</div>
+					</fieldset>
+					<fieldset class="calculator__fieldset">
+						<legend class="calculator__param-name">Оснащение</legend>
+						<div>
+							<input type="checkbox" name="audio" id="audio" checked="checked">
+							<span class="calculator__param-value">Аудиосистема</span>
+						</div>
+						<div>
+							<input type="checkbox" name="navigation" id="navigation">
+							<span class="calculator__param-value">Система навигации</span>
+						</div>
+						<div>
+							<input type="checkbox" name="bluetooth" id="bluetooth">
+							<span class="calculator__param-value">Bluetooth</span>
+						</div>
+						<div>
+							<input type="checkbox" name="signaling" id="signaling">
+							<span class="calculator__param-value">Сигнализация</span>
+						</div>
+						<div>
+							<input type="checkbox" name="air-conditioner" id="air-conditioner">
+							<span class="calculator__param-value">Кондиционер</span>
+						</div>
+					</fieldset>
+				</div>
+				<button class="calculator__button" type="button">Рассчитать стоимость</button>
+			</form>
+		</div>
+
+	</main>
+
+	<script src="./assets/js/script.js"></script>
+
+</body>
+
+</html>

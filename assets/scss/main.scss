@@ -1,0 +1,87 @@
+$light-grey: rgb(181, 181, 181);
+$form-color: darksalmon;
+$white-font: rgb(250, 250, 250);
+$dark-font: rgb(10, 10, 10);
+
+@mixin item-border {
+	border: 1px solid $light-grey;
+	border-radius: 4px;
+	height: 35px;
+	padding-left: 5px;
+	font-family: inherit;
+	font-size: inherit;
+}
+
+body{
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: 12px;
+}
+.main{
+	display: flex;
+	&__wrapper{
+		border-radius: 8px;
+		max-width: 1000px;
+		min-width: 400px;	
+		border: 1px solid $form-color;
+		margin: 30px auto 0px auto;
+		padding-bottom: 30px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items:flex-start;
+	}
+	&__header{
+		width: 100%;
+		border-top-left-radius: 6px;
+		border-top-right-radius: 6px;
+		padding: 20px;
+		text-align: center;
+		align-self: center;
+		color: $white-font;
+		font-weight: 500;
+		font-size: 15px;
+		background-color: $form-color;
+	}
+	&__form{
+		width: 100%;
+		padding: 15px 30px 30px;
+		display: flex;
+		flex-direction: column;
+	}
+	&__wrapper-row{
+		margin: 5px 0;
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+}
+.calculator{
+	& > *{
+		margin-bottom: 10px;
+		color: $dark-font;
+	}
+	&__select{
+		@include item-border;
+	}
+	&__fieldset{
+	}
+	&__param-name{
+		margin-bottom: 5px;
+	}
+	&__param-value{
+		font-size: 11px;
+	}
+	&__input{
+		@include item-border;
+	}
+	&__button{
+		@include item-border;
+		margin-top: 15px;
+		color: $white-font;
+		font-size: 15px;
+		font-weight: bold;
+		letter-spacing: 1px;
+		background-color: darkcyan;
+	}
+}
