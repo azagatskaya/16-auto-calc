@@ -14,6 +14,12 @@ $btn-color: darkcyan;
 	font-family: inherit;
 	font-size: inherit;
 }
+@mixin required-sign{
+	content: '*';
+	color: $red-color;
+	font-weight: bold;
+	font-size: 14px;
+}
 
 body{
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -67,10 +73,11 @@ body{
 		width: 100%;
 		position: relative;
 		&::after{
-			content: '*';
-			color: $red-color;
-			font-weight: bold;
-			font-size: 14px;
+			@include required-sign;
+			// content: '*';
+			// color: $red-color;
+			// font-weight: bold;
+			// font-size: 14px;
 			position: absolute;
 			right: -12px;
 		}
@@ -111,10 +118,11 @@ sup{
 	text-align: center;
 }
 .input-label--required::after{
-	content: '*';
-	color: $red-color;
-	font-weight: bold;
-	font-size: 14px;
+	@include required-sign;
+	// content: '*';
+	// color: $red-color;
+	// font-weight: bold;
+	// font-size: 14px;
 }
 .required-fields{
 	margin-top: 5px;
@@ -123,10 +131,11 @@ sup{
 	position: relative;
 	padding-left: 20px;
 	&::before{
-		content: '*';
-		color: $red-color;
-		font-weight: bold;
-		font-size: 14px;
+		@include required-sign;
+		// content: '*';
+		// color: $red-color;
+		// font-weight: bold;
+		// font-size: 14px;
 		position: absolute;
 		left: 8px;
 		top: -5px;
