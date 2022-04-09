@@ -18,6 +18,7 @@ let model = getModel();
 let year = getYear();
 let engineVolume = getEngineVolume();
 let horsePower = getHorsePower();
+
 // ============ EventListeners ===================
 
 make.addEventListener('change', function () {
@@ -26,7 +27,7 @@ make.addEventListener('change', function () {
 		model.disabled = true;
 		disableYear();
 	} else {
-		make.classList.remove('input-required-red');
+		removeRedBorder(make); 
 		let index = getMakeIndex(make);
 		addModels(index);
 		let fieldset = document.querySelector('.select--model');
@@ -38,7 +39,7 @@ model.addEventListener('change', function () {
 	if (model.value == 'choose') {
 		disableYear();
 	} else {
-		model.classList.remove('input-required-red');
+		removeRedBorder(model); 
 		let fieldset = document.querySelector('.select--year');
 		fieldset.removeAttribute('disabled');
 	}
@@ -46,7 +47,7 @@ model.addEventListener('change', function () {
 
 year.addEventListener('change', function () {
 	if (year.value != "choose") {
-		year.classList.remove('input-required-red');
+		removeRedBorder(year); 
 	}
 });
 
@@ -173,6 +174,30 @@ function disableYear(){
 	year.disabled = true;
 }
 
+
+function changeFromNull() {
+	console.log(this.value);
+	if (this.value != '' || this.value != 0) {
+		console.log("works");
+		removeRedBorder(this); 
+	}
+}
+function checkNullVal() {
+	if (this.value == '' || this.value == null) {
+		addRedBorder(this); 
+	}
+}
+
+function calculatePrice() {
+	if (validateFields()) {
+		let carPrice = getBasePrice() + getAmortizationDiscount() +
+		getFuelPrice() + getDriveUnitPrice() + getTransmissionPrice() +
+		getCarBodyPrice() + getEngineVolumePrice() + getHorsePowerPrice() + 
+		getMileagePrice() + getEquipmentPrice();
+		printResult(carPrice + ' руб.');
+	}
+}
+
 function removeOptions(selectClass) {
 	let options = document.querySelectorAll(selectClass + ' option');
 	if (options.length > 1) {
@@ -182,27 +207,11 @@ function removeOptions(selectClass) {
 	}
 }
 
-function changeFromNull() {
-	console.log(this.value);
-	if (this.value != '' || this.value != 0) {
-		console.log("works");
-		this.classList.remove('input-required-red');
-	}
+function addRedBorder(elem) {
+	elem.classList.add('input-required-red');
 }
-function checkNullVal() {
-	if (this.value == '' || this.value == null) {
-		this.classList.add('input-required-red');
-	}
-}
-
-function calculatePrice() {
-	if (validateFields()) {
-		let carPrice = getBasePrice() + getAmortizationDiscount() +
-			getFuelPrice() + getDriveUnitPrice() + getTransmissionPrice() +
-			getCarBodyPrice() + getEngineVolumePrice() + getHorsePowerPrice() + 
-			getMileagePrice() + getEquipmentPrice();
-		printResult(carPrice + ' руб.');
-	}
+function removeRedBorder(elem) {
+	elem.classList.remove('input-required-red');
 }
 
 function validateFields() {
@@ -210,7 +219,7 @@ function validateFields() {
 	let requiredSelects = document.querySelectorAll('.input--required');
 	for (let e of requiredSelects) {
 		if (e.value == 'choose' || e.value == '' || e.value == 0) {
-			e.classList.add('input-required-red');
+			addRedBorder(e); 
 			validityFlag = false;
 		}
 	}
