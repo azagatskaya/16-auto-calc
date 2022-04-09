@@ -91,11 +91,9 @@ sup{
 .result-window{
 	margin-top: 50px;
 	height: 30px;
-	text-align: center;
 	padding: auto;
 	font-size: 18px;
-	display: flex;
-	flex-wrap: wrap;
+	text-align: center;
 }
 .input-label--required::after{
 	content: '*';

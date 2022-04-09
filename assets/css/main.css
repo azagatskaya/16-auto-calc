@@ -126,14 +126,9 @@ sup {
 .result-window {
   margin-top: 50px;
   height: 30px;
-  text-align: center;
   padding: auto;
   font-size: 18px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  text-align: center;
 }
 
 .input-label--required::after {

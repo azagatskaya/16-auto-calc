@@ -15,17 +15,25 @@ let makeAndModels = [
 
 let make = getMake();
 let model = getModel();
+let year = getYear();
 
 make.addEventListener('change', function () {
 	removeOptions('.select--model');
-	let index = getMakeIndex(make);
-	addModels(index);
-	
-	let fieldset = document.querySelector('.select--model');
-	fieldset.removeAttribute('disabled');
+	if (make.value == 'choose') {
+		model.disabled = true;
+		year.value = "choose";
+		year.disabled = true;
+		document.querySelector('.select--year').addAttribute('disabled');
+	} else {
+		let index = getMakeIndex(make);
+		addModels(index);
+		let fieldset = document.querySelector('.select--model');
+		fieldset.removeAttribute('disabled');
+	}
 });
 
 model.addEventListener('change', function () {
+	if (model.value == 'choose') { year.value = "choose"; }
 	let fieldset = document.querySelector('.select--year');
 	fieldset.removeAttribute('disabled');
 });
@@ -39,8 +47,8 @@ function getMake(){
 function getModel() {
 	return document.querySelector('.select--model');
 }
-function getYearValue() {
-	return document.querySelector('.select--year').value;
+function getYear() {
+	return document.querySelector('.select--year');
 }
 function getMakeIndex(make) {
 	for (let i = 0; i < makeAndModels.length; i++){
@@ -48,7 +56,7 @@ function getMakeIndex(make) {
 			return i;
 		}
 	}
-	alert(`No models for ${make.value} in DB`);
+	// document.querySelector('.select--model').addAttribute('disabled');
 }
 
 function getModelIndex(make, model) {
@@ -58,7 +66,7 @@ function getModelIndex(make, model) {
 			return i;
 		}
 	}
-	alert(`No price for ${model.value} in DB`);
+	// document.querySelector('.select--year').addAttribute('disabled');
 }
 
 function addModels(makeIndex) {
@@ -96,7 +104,7 @@ function getBasePrice() {
 	return makeAndModels[makeIndex][modelIndex][1];
 }
 function getAmortizationDiscount() {
-	let selectedYear = getYearValue();
+	let selectedYear = getYear().value;
 	let currentYear = new Date().getFullYear();
 	let carAge = currentYear - selectedYear;
 	return (carAge > 5) ? (-carAge *7000) : ((5 - carAge) * 15000);
@@ -150,7 +158,7 @@ function getHorsePower() {
 }
 function getHorsePowerPrice() {
 	let horsePower = getHorsePower();
-	return horsePower * 1000;
+	return horsePower * 2000;
 }
 
 function getMileage() {
@@ -164,7 +172,7 @@ function getEquipmentPrice() {
 
 }
 function validateFields() {
-	if (make.value == '-Марка-' || model.value == '-Модель-' || getYearValue() == '-Год выпуска-' || getEngineVolume() == 0 || getHorsePower() == 0) {
+	if (make.value == 'choose' || model.value == 'choose' || getYear().value == 'choose' || getEngineVolume() == 0 || getHorsePower() == 0) {
 		printResult('Необходимо заполнить обязательные поля.');
 	}
 }
