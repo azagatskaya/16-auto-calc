@@ -16,15 +16,17 @@ let makeAndModels = [
 let make = getMake();
 let model = getModel();
 let year = getYear();
+let engineVolume = getEngineVolume();
+let horsePower = getHorsePower();
+// ============ EventListeners ===================
 
 make.addEventListener('change', function () {
 	removeOptions('.select--model');
 	if (make.value == 'choose') {
 		model.disabled = true;
-		year.value = "choose";
-		year.disabled = true;
-		document.querySelector('.select--year').addAttribute('disabled');
+		disableYear();
 	} else {
+		make.classList.remove('input-required-red');
 		let index = getMakeIndex(make);
 		addModels(index);
 		let fieldset = document.querySelector('.select--model');
@@ -33,13 +35,30 @@ make.addEventListener('change', function () {
 });
 
 model.addEventListener('change', function () {
-	if (model.value == 'choose') { year.value = "choose"; }
-	let fieldset = document.querySelector('.select--year');
-	fieldset.removeAttribute('disabled');
+	if (model.value == 'choose') {
+		disableYear();
+	} else {
+		model.classList.remove('input-required-red');
+		let fieldset = document.querySelector('.select--year');
+		fieldset.removeAttribute('disabled');
+	}
 });
 
+year.addEventListener('change', function () {
+	if (year.value != "choose") {
+		year.classList.remove('input-required-red');
+	}
+});
+
+let reqInputs = document.querySelectorAll('input.input--required');
+for (let el of reqInputs) {
+	el.addEventListener('change', changeFromNull);
+	el.addEventListener('focusout', checkNullVal);
+}
+
 document.querySelector('.calculator__button').addEventListener('click', calculatePrice);
-document.querySelector('.calculator__button').addEventListener('click', validateFields);
+
+// ================ Getters =========================
 
 function getMake(){
 	return document.querySelector('.select--make');
@@ -50,15 +69,14 @@ function getModel() {
 function getYear() {
 	return document.querySelector('.select--year');
 }
+
 function getMakeIndex(make) {
 	for (let i = 0; i < makeAndModels.length; i++){
 		if (makeAndModels[i][0] == make.value) {
 			return i;
 		}
 	}
-	// document.querySelector('.select--model').addAttribute('disabled');
 }
-
 function getModelIndex(make, model) {
 	let makeIndex = getMakeIndex(make);
 	for (let i = 1; i < makeAndModels[makeIndex].length; i++){
@@ -66,38 +84,7 @@ function getModelIndex(make, model) {
 			return i;
 		}
 	}
-	// document.querySelector('.select--year').addAttribute('disabled');
 }
-
-function addModels(makeIndex) {
-	for (let i = 1; i < makeAndModels[makeIndex].length; i++){
-		let newOption = document.createElement('option');
-		newOption.innerHTML = makeAndModels[makeIndex][i][0];
-		document.querySelector('.select--model').append(newOption); 
-	}
-}
-
-function removeOptions(selectClass) {
-	let options = document.querySelectorAll(selectClass + ' option');
-	if (options.length > 1) {
-		for (let i = 1; i < options.length; i++){
-			options[i].remove();
-		}
-	}
-}
-
-function calculatePrice() {
-	let carPrice = getBasePrice() + getAmortizationDiscount() +
-		getFuelPrice() + getDriveUnitPrice() + getTransmissionPrice() +
-		getCarBodyPrice() + getEngineVolumePrice() + getHorsePowerPrice() + 
-		getMileagePrice() + getEquipmentPrice();
-	printResult(carPrice + ' руб.');
-
-}
-function printResult(text) {
-	document.querySelector('.result-window').innerHTML = text;
-}
-
 function getBasePrice() {
 	let makeIndex = getMakeIndex(make);
 	let modelIndex = getModelIndex(make, model);
@@ -146,18 +133,18 @@ function getCarBodyPrice() {
 }
 
 function getEngineVolume() {
-	return document.querySelector('.input--engine-volume').value;
+	return document.querySelector('.input--engine-volume');
 }
 function getEngineVolumePrice() {
-	let engineVol = getEngineVolume();
+	let engineVol = getEngineVolume().value;
 	return engineVol * 20;
 }
 
 function getHorsePower() {
-	return document.querySelector('.input--horse-power').value;
+	return document.querySelector('.input--horse-power');
 }
 function getHorsePowerPrice() {
-	let horsePower = getHorsePower();
+	let horsePower = getHorsePower().value;
 	return horsePower * 2000;
 }
 
@@ -169,10 +156,70 @@ function getMileagePrice() {
 }
 function getEquipmentPrice() {
 	return document.querySelectorAll('.equipment input:checked').length * 10000;
-
 }
+
+// ================= Main Functions =====================
+
+function addModels(makeIndex) {
+	for (let i = 1; i < makeAndModels[makeIndex].length; i++){
+		let newOption = document.createElement('option');
+		newOption.innerHTML = makeAndModels[makeIndex][i][0];
+		document.querySelector('.select--model').append(newOption); 
+	}
+}
+
+function disableYear(){
+	year.value = "choose";
+	year.disabled = true;
+}
+
+function removeOptions(selectClass) {
+	let options = document.querySelectorAll(selectClass + ' option');
+	if (options.length > 1) {
+		for (let i = 1; i < options.length; i++){
+			options[i].remove();
+		}
+	}
+}
+
+function changeFromNull() {
+	console.log(this.value);
+	if (this.value != '' || this.value != 0) {
+		console.log("works");
+		this.classList.remove('input-required-red');
+	}
+}
+function checkNullVal() {
+	if (this.value == '' || this.value == null) {
+		this.classList.add('input-required-red');
+	}
+}
+
+function calculatePrice() {
+	if (validateFields()) {
+		let carPrice = getBasePrice() + getAmortizationDiscount() +
+			getFuelPrice() + getDriveUnitPrice() + getTransmissionPrice() +
+			getCarBodyPrice() + getEngineVolumePrice() + getHorsePowerPrice() + 
+			getMileagePrice() + getEquipmentPrice();
+		printResult(carPrice + ' руб.');
+	}
+}
+
 function validateFields() {
-	if (make.value == 'choose' || model.value == 'choose' || getYear().value == 'choose' || getEngineVolume() == 0 || getHorsePower() == 0) {
+	let validityFlag = true;
+	let requiredSelects = document.querySelectorAll('.input--required');
+	for (let e of requiredSelects) {
+		if (e.value == 'choose' || e.value == '' || e.value == 0) {
+			e.classList.add('input-required-red');
+			validityFlag = false;
+		}
+	}
+	if (!validityFlag) {
 		printResult('Необходимо заполнить обязательные поля.');
 	}
+	return validityFlag;
+}
+
+function printResult(text) {
+	document.querySelector('.result-window').innerHTML = text;
 }

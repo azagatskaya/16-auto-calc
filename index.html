@@ -16,37 +16,43 @@
 		<div class="main__wrapper">
 			<header class="main__header">Калькулятор стоимости авто</header>
 			<form class="main__form calculator" action="" method="get">
-				<select class="calculator__select select--make input-label--required" name="make" id="make">
-					<option value="choose" title="-Выберите-">-Марка-</option>
-					<option value="mitsubishi">Mitsubishi</option>
-					<option value="suzuki">Suzuki</option>
-					<option value="toyota">Toyota</option>
-				</select>
-				<select class="calculator__select select--model" name="model" id="model" disabled="disabled">
-					<option value="choose">-Модель-</option>
-				</select>
+				<div class="calculator__select-wrapper">
+					<select class="calculator__select select--make input--required" name="make" id="make">
+						<option value="choose" title="-Выберите-">-Марка-</option>
+						<option value="mitsubishi">Mitsubishi</option>
+						<option value="suzuki">Suzuki</option>
+						<option value="toyota">Toyota</option>
+					</select>
+				</div>
+				<div class="calculator__select-wrapper">
+					<select class="calculator__select select--model input--required" name="model" id="model" disabled="disabled">
+						<option value="choose">-Модель-</option>
+					</select>
+				</div>
 
-				<select class="calculator__select select--year" name="year" id="year" disabled="true">
-					<option value="choose">-Год выпуска-</option>
-					<option value="2005">2005</option>
-					<option value="2006">2006</option>
-					<option value="2007">2007</option>
-					<option value="2008">2008</option>
-					<option value="2009">2009</option>
-					<option value="2010">2010</option>
-					<option value="2011">2011</option>
-					<option value="2012">2012</option>
-					<option value="2013">2013</option>
-					<option value="2014">2014</option>
-					<option value="2015">2015</option>
-					<option value="2016">2016</option>
-					<option value="2017">2017</option>
-					<option value="2018">2018</option>
-					<option value="2019">2019</option>
-					<option value="2020">2020</option>
-					<option value="2021">2021</option>
-					<option value="2022">2022</option>
-				</select>
+				<div class="calculator__select-wrapper">
+					<select class="calculator__select select--year input--required" name="year" id="year" disabled="true">
+						<option value="choose">-Год выпуска-</option>
+						<option value="2005">2005</option>
+						<option value="2006">2006</option>
+						<option value="2007">2007</option>
+						<option value="2008">2008</option>
+						<option value="2009">2009</option>
+						<option value="2010">2010</option>
+						<option value="2011">2011</option>
+						<option value="2012">2012</option>
+						<option value="2013">2013</option>
+						<option value="2014">2014</option>
+						<option value="2015">2015</option>
+						<option value="2016">2016</option>
+						<option value="2017">2017</option>
+						<option value="2018">2018</option>
+						<option value="2019">2019</option>
+						<option value="2020">2020</option>
+						<option value="2021">2021</option>
+						<option value="2022">2022</option>
+					</select>
+				</div>
 
 				<div class="main__wrapper-row">
 					<fieldset class="calculator__fieldset radio--fuel">
@@ -93,11 +99,12 @@
 				</div>
 
 				<label class="calculator__param-name input-label--required" for="engine-volume">Объем двигателя, см<sup>3</sup>.</label>
-				<input class="calculator__input input--engine-volume" type="number" id="engine-volume" min="500" max="6000" step="100">
+				<input class="calculator__input input--engine-volume input--required" type="number" id="engine-volume" min="500" max="6000" step="100">
 				<label class="calculator__param-name input-label--required" for="horse-power">Мощность, л.с.</label>
-				<input class="calculator__input input--horse-power" type="number" id="horse-power" min="50" max="500">
+				<input class="calculator__input input--horse-power input--required" type="number" id="horse-power" min="50" max="500">
 				<label class="calculator__param-name" for="mileage">Пробег, км.</label>
 				<input class="calculator__input input--mileage" type="number" id="mileage" min="0" step="1000">
+				<div class="required-fields"> помечены обязательные поля.</div>
 
 				<div class="main__wrapper-row">
 					<fieldset class="calculator__fieldset radio--car-body">
