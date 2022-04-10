@@ -27,9 +27,9 @@ body{
 }
 .main{
 	display: flex;
-	&__wrapper{
+	&__wrapper {
 		border-radius: 8px;
-		width: 300px;	
+		width: 400px;	
 		border: 1px solid $form-color;
 		margin: 30px auto 0px auto;
 		padding-bottom: 30px;
@@ -57,11 +57,17 @@ body{
 		flex-direction: column;
 	}
 	&__wrapper-row{
-		margin: 5px 0;
 		width: 100%;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
+		@media screen and (max-width: 340px) {
+			flex-direction: column;
+			padding-left: 5px;
+		}
+		& > fieldset{
+			margin: 5px 0;
+		}
 	}
 }
 .calculator{
@@ -74,10 +80,6 @@ body{
 		position: relative;
 		&::after{
 			@include required-sign;
-			// content: '*';
-			// color: $red-color;
-			// font-weight: bold;
-			// font-size: 14px;
 			position: absolute;
 			right: -12px;
 		}
@@ -103,6 +105,9 @@ body{
 		font-weight: bold;
 		letter-spacing: 1px;
 		background-color: $btn-color;
+		@media screen and (max-width: 340px) {
+			height: 50px;
+		}
 	}
 }
 sup{
@@ -110,7 +115,6 @@ sup{
 	font-size: 8px;
 }
 .result-window{
-	// border: 1px solid black;
 	margin-top: 10px;
 	height: 30px;
 	padding: auto;
@@ -119,10 +123,6 @@ sup{
 }
 .input-label--required::after{
 	@include required-sign;
-	// content: '*';
-	// color: $red-color;
-	// font-weight: bold;
-	// font-size: 14px;
 }
 .required-fields{
 	margin-top: 5px;
@@ -132,10 +132,6 @@ sup{
 	padding-left: 20px;
 	&::before{
 		@include required-sign;
-		// content: '*';
-		// color: $red-color;
-		// font-weight: bold;
-		// font-size: 14px;
 		position: absolute;
 		left: 8px;
 		top: -5px;
