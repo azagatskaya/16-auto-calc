@@ -1,4 +1,4 @@
-let makeAndModels = [
+const makeAndModels = [
 	["mitsubishi",
 		["Lancer", 500000],
 		["Outlander", 600000],
@@ -16,53 +16,75 @@ let makeAndModels = [
 	]
 ];
 
-let make = getMake();
-let model = getModel();
-let year = getYear();
-let engineVolume = getEngineVolume();
-let horsePower = getHorsePower();
+const fuel = [
+	['hybrid', 20000],
+	['diesel', -20000],
+	['petrol', 0]
+];
+
+const dUnit = [
+	['front-du', 0],
+	['full-du', 40000]
+];
+
+const transmission = [
+	['automatic-tr', 50000],
+	['mechanic-tr', 0],
+	['robotic-tr', 30000]
+];
+
+const carBody = [
+	['sedan', 30000],
+	['hatchback', 0],
+	['universal', 60000]
+];
+
+const make = getMake();
+const model = getModel();
+const year = getYear();
+const engineVolume = getEngineVolume();
+const horsePower = getHorsePower();
+const reqInputs = getRequieredInputs();
+const resBtn = getResBtn();
 
 // ============ EventListeners ===================
 
+
 make.addEventListener('change', function () {
-	removeOptions('.select--model');
-	if (make.value == 'choose') {
+	removeOptionList('.select--model');
+	if (isValueChoose(make)) {
 		addRedBorder(make);
-		model.disabled = true;
-		disableYear();
+		setDisabled(model);
+		disableSelect(year);
 	} else {
 		removeRedBorder(make);
-		let index = getMakeIndex(make);
-		addModels(index);
-		let fieldset = document.querySelector('.select--model');
-		fieldset.removeAttribute('disabled');
+		addModels(getMakeIndex(make));
+		model.removeAttribute('disabled');
 	}
 });
 
 model.addEventListener('change', function () {
-	if (model.value == 'choose') {
+	if (isValueChoose(model)) {
 		addRedBorder(model);
-		disableYear();
+		disableSelect(year);
 	} else {
 		removeRedBorder(model);
-		let fieldset = document.querySelector('.select--year');
-		fieldset.removeAttribute('disabled');
+		year.removeAttribute('disabled');
 	}
 });
 
 year.addEventListener('change', function () {
-	if (year.value != "choose") {
+	if (!isValueChoose(year)) {
 		removeRedBorder(year);
 	}
 });
 
-let reqInputs = document.querySelectorAll('input.input--required');
 for (let el of reqInputs) {
 	el.addEventListener('change', changeFromNull);
 	el.addEventListener('focusout', checkNullVal);
 }
 
-document.querySelector('.calculator__button').addEventListener('click', calculatePrice);
+resBtn.addEventListener('click', calculatePrice);
 
 // ================ Getters =========================
 
@@ -80,96 +102,68 @@ function getYear() {
 
 function getMakeIndex(make) {
 	for (let i = 0; i < makeAndModels.length; i++) {
-		if (makeAndModels[i][0] == make.value) {
+		if (makeAndModels[i][0] === make.value) {
 			return i;
 		}
 	}
 }
 
 function getModelIndex(make, model) {
-	let makeIndex = getMakeIndex(make);
-	for (let i = 1; i < makeAndModels[makeIndex].length; i++) {
-		if (makeAndModels[makeIndex][i][0] == model.value) {
+	for (let i = 1; i < makeAndModels[getMakeIndex(make)].length; i++) {
+		if (makeAndModels[getMakeIndex(make)][i][0] === model.value) {
 			return i;
 		}
 	}
 }
 
 function getBasePrice() {
-	let makeIndex = getMakeIndex(make);
-	let modelIndex = getModelIndex(make, model);
-	return makeAndModels[makeIndex][modelIndex][1];
+	return makeAndModels[getMakeIndex(make)][getModelIndex(make, model)][1];
 }
 
 function getAmortizationDiscount() {
-	let selectedYear = getYear().value;
-	let currentYear = new Date().getFullYear();
-	let carAge = currentYear - selectedYear;
+	const carAge = getCurrentYear() - year.value;
 	return (carAge > 5) ? (-carAge * 7000) : ((5 - carAge) * 15000);
 }
 
-function getFuel() {
+function getCurrentYear() {
+	return new Date().getFullYear();
+}
+// -------------- Radio Buttons -----------------
+function getFuelId() {
 	return document.querySelector('.radio--fuel input:checked').id;
 }
-
-function getFuelPrice() {
-	let fuel = getFuel();
-	if (fuel == 'hybrid') {
-		return 20000;
-	}
-	if (fuel == 'diesel') {
-		return -20000;
-	}
-	if (fuel == 'petrol') {
-		return 0;
-	}
-}
-
-function getDriveUnit() {
+function getDriveUnitId() {
 	return document.querySelector('.radio--drive-unit input:checked').id;
 }
-
-function getDriveUnitPrice() {
-	let dUnit = getDriveUnit();
-	if (dUnit == 'front-du') {
-		return 0;
-	}
-	if (dUnit == 'full-du') {
-		return 40000;
-	}
-}
-
-function getTransmission() {
+function getTransmissionId() {
 	return document.querySelector('.radio--transmission input:checked').id;
 }
-
-function getTransmissionPrice() {
-	let transmission = getTransmission();
-	if (transmission == 'automatic-tr') {
-		return 50000;
-	}
-	if (transmission == 'mechanic-tr') {
-		return 0;
-	}
-	if (transmission == 'robotic-tr') {
-		return 30000;
-	}
-}
-
-function getCarBody() {
+function getCarBodyId() {
 	return document.querySelector('.radio--car-body input:checked').id;
 }
 
+function getFuelPrice() {
+	return getRadioBtnPrice(getFuelId(), fuel);
+}
+function getDriveUnitPrice() {
+	return getRadioBtnPrice(getDriveUnitId(), dUnit);
+}
+function getTransmissionPrice() {
+	return getRadioBtnPrice(getTransmissionId(), transmission);
+}
 function getCarBodyPrice() {
-	let carBody = getCarBody();
-	if (carBody == 'sedan') {
-		return 30000;
-	}
-	if (carBody == 'hatchback') {
-		return 0;
-	}
-	if (carBody == 'universal') {
-		return 60000;
+	return getRadioBtnPrice(getCarBodyId(), carBody);
+}
+
+function getRadioBtnPrice(elId, arr) {
+	return arr[getIndex(elId, arr)][1];
+}
+
+function getIndex(elId, arr) {
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i][0] === elId) {
+			return i;
+		}
 	}
 }
 
@@ -178,8 +172,7 @@ function getEngineVolume() {
 }
 
 function getEngineVolumePrice() {
-	let engineVol = getEngineVolume().value;
-	return engineVol * 20;
+	return engineVolume.value * 20;
 }
 
 function getHorsePower() {
@@ -187,8 +180,7 @@ function getHorsePower() {
 }
 
 function getHorsePowerPrice() {
-	let horsePower = getHorsePower().value;
-	return horsePower * 2000;
+	return horsePower.value * 2000;
 }
 
 function getMileage() {
@@ -203,71 +195,113 @@ function getEquipmentPrice() {
 	return document.querySelectorAll('.equipment input:checked').length * 10000;
 }
 
+function getRequieredInputs() {
+	return document.querySelectorAll('input.input--required');
+}
+
+function getRequiredFieldsAll() {
+	return document.querySelectorAll('.input--required');
+}
+
+function getResBtn() {
+	return document.querySelector('.calculator__button');
+}
+
+// ================= Setters ============================
+
+function setValueChoose(el) {
+	el.value = 'choose';
+}
+
+function setDisabled(el) {
+	el.disabled = true;
+}
+
 // ================= Main Functions =====================
+
+function isValueChoose(el) {
+	return el.value === 'choose';
+}
+
+function addOption() {
+	return document.createElement('option');
+}
 
 function addModels(makeIndex) {
 	for (let i = 1; i < makeAndModels[makeIndex].length; i++) {
-		let newOption = document.createElement('option');
+		const newOption = addOption();
 		newOption.innerHTML = makeAndModels[makeIndex][i][0];
-		document.querySelector('.select--model').append(newOption);
+		model.append(newOption);
 	}
 }
 
 function addRedBorder(elem) {
 	elem.classList.add('input-required-red');
 }
+
 function removeRedBorder(elem) {
 	elem.classList.remove('input-required-red');
 }
 
 function changeFromNull() {
-	console.log(this.value);
-	if (this.value != '' || this.value != 0) {
-		console.log("works");
+	if (isValueNotNull(this)) {
 		removeRedBorder(this);
 	}
 }
 
 function checkNullVal() {
-	if (this.value == '' || this.value == null) {
+	if (!isValueNotNull(this)) {
 		addRedBorder(this);
 	}
 }
 
+function isValueNotNull(el) {
+	return (el.value !== '' && el.value !== '0');
+}
+
 function calculatePrice() {
 	if (validateFields()) {
-		let carPrice = getBasePrice() + getAmortizationDiscount() +
-		getFuelPrice() + getDriveUnitPrice() + getTransmissionPrice() +
-		getCarBodyPrice() + getEngineVolumePrice() + getHorsePowerPrice() +
-		getMileagePrice() + getEquipmentPrice();
-		printResult(carPrice + ' руб.');
+		printResult(sumOfPrices() + ' руб.');
 	}
 }
 
-function disableYear() {
-	year.value = "choose";
-	year.disabled = true;
+function sumOfPrices() {
+	return getBasePrice() + getAmortizationDiscount() +
+		getFuelPrice() + getDriveUnitPrice() + getTransmissionPrice() +
+		getCarBodyPrice() + getEngineVolumePrice() + getHorsePowerPrice() +
+		getMileagePrice() + getEquipmentPrice();
+}
+
+function disableSelect(el) {
+	setValueChoose(el);
+	setDisabled(el);
 }
 
 function printResult(text) {
 	document.querySelector('.result-window').innerHTML = text;
 }
 
-function removeOptions(selectClass) {
-	let options = document.querySelectorAll(selectClass + ' option');
-	if (options.length > 1) {
-		for (let i = 1; i < options.length; i++) {
-			options[i].remove();
-		}
+function getOptionsList(selectClass) {
+	return document.querySelectorAll(selectClass + ' option');
+}
+function isOptionList(arr) {
+	return arr.length > 1 ? arr.length : -1;
+}
+function removeOption(arr){
+	for (let i = 1; i < arr.length; i++) {
+	arr[i].remove();
+}
+}
+function removeOptionList(selectClass) {
+	if (isOptionList(getOptionsList(selectClass))){ 
+		removeOption(getOptionsList(selectClass));
 	}
 }
 
-
 function validateFields() {
 	let validityFlag = true;
-	let requiredSelects = document.querySelectorAll('.input--required');
-	for (let e of requiredSelects) {
-		if (e.value == 'choose' || e.value == '' || e.value == 0) {
+	for (let e of getRequiredFieldsAll()) {
+		if (isValueChoose(e) || !(isValueNotNull(e)) || e.value === null) {
 			addRedBorder(e);
 			validityFlag = false;
 		}
